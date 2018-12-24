@@ -83,7 +83,7 @@ int pawn(char board[8][8], int x, int y, int m, int n) {
 		}
 
 			//capturing
-		if ( (isupper(board[m][n])) && (y == n - 1) && ( (m == x + 1) || (m == x - 1) ) ) {
+		if ( (isupper(board[m][n])) && (y == n + 1) && ( (m == x + 1) || (m == x - 1) ) ) {
 			return 1;
 		}
 
@@ -118,7 +118,7 @@ int pawn(char board[8][8], int x, int y, int m, int n) {
 		}
 
 		//capturing
-		if ( (islower(board[m][n])) && (y == n + 1) && ( (m == x + 1) || (m == x - 1) ) ) {
+		if ( (islower(board[m][n])) && (y == n - 1) && ( (m == x + 1) || (m == x - 1) ) ) {
 			return 1;
 		}
 
