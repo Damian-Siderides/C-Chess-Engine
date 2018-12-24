@@ -12,34 +12,41 @@ int queen(char board[8][8], int x, int y, int m, int n);
 int king(char board[8][8], int x, int y, int m, int n);
 
 int whichPiece(char board[8][8], int x, int y, int m, int n) {
-	
-	switch (board[n - 1][m - 1]) {
+	printf("Actually checking which piece\n");
+	switch (tolower(board[y][x])) {
 		case 'p': {
+					printf("Checking Pawn legal move\n");
 					return pawn(board, x, y, m, n);
 					break;
 		}
 		case 'n': {
+					printf("Checking Knight legal move\n");
 					return knight(board, x, y, m, n);
 					break;
 		}
 		case 'b': {
+					printf("Checking Bishop legal move\n");
 					return bishop(board, x, y, m, n);
 					break;
 		}
 		case 'r': {
+					printf("Checking Rook legal move\n");
 					return rook(board, x, y, m, n);
 					break;
 		}
 		case 'q': {
+					printf("Checking Queen legal move\n");
 					//return queen(board, x, y, m, n);
 					return rook(board, x, y, m, n) || bishop(board, x, y, m, n);
 					break;
 		}
 		case 'k': {
+					printf("Checking King legal move\n");
 					return king(board, x, y, m, n);
 					break;
 		}
 	}
+	printf("You've reposted in the wrong neighborhood\n");
 	return 0;
 }
 
@@ -67,7 +74,7 @@ int pawn(char board[8][8], int x, int y, int m, int n) {
 	if (islower(board[y][x])) {
 
 			//move forward 1
-		if (y == n - 1 && x == m && board[n][m] == ' ') {
+		if (y == n + 1 && x == m && board[n][m] == ' ') {
 			return 1;
 		}
 			//move forwards 2 on first move
@@ -99,10 +106,10 @@ int pawn(char board[8][8], int x, int y, int m, int n) {
 		
 	}
 
-	if (islower(board[y][x])) {
+	if (isupper(board[y][x])) {
 
 			//move forward 1
-		if (y == n + 1 && x == m && board[n][m] == ' ') {
+		if (y == n - 1 && x == m && board[n][m] == ' ') {
 			return 1;
 		}
 			//move forwards 2 on first move
@@ -155,6 +162,7 @@ int knight(char board[8][8], int x, int y, int m, int n) {
 		printf("Legal Knight Move.\n"); 
 		return 1;
 	}
+	printf("Illegal Knight Move\n");
 	return 0;
 }
 int bishop(char board[8][8], int x, int y, int m, int n) {

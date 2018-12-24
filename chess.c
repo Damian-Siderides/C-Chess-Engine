@@ -25,6 +25,9 @@ int y = 0;
 int m = 0;
 int n = 0;
 
+char xChar = '0';
+char mChar = '0';
+
 char p = 0;
 
 int turnNum = 0;
@@ -113,37 +116,59 @@ void move(int turnNumber) {
 	}
 
 
-	scanf(" %d", &x);				// here we are scanning in the arguments. In future is there a better way of input output?
+	scanf(" %c", &xChar);				// here we are scanning in the arguments. In future is there a better way of input output?
 	scanf(" %d", &y);
-	scanf(" %d", &m);				// one simpler way is to use one number and one letter. We just need a way to convert the letter back into number format very quickly.
+	scanf(" %c", &mChar);				// one simpler way is to use one number and one letter. We just need a way to convert the letter back into number format very quickly.
 	scanf(" %d", &n);
 
 
 	//implement any tricks here, so future interation with the BOARD are clean.
+
+	//experiment with casting char to int
+
+	x = xChar - '`';
+	m = mChar - '`';
+
+	
+
+
+
+	// when we implement characters as coordinates, probably smarter to convert it to an int here.
+
+	printf("You moved the piece %c from %c%d to %c%d\n\n\n\n\n", board[y - 1][x - 1], xChar, y, mChar, n);	
 
 	x--;
 	y--;
 	m--;
 	n--;
 
-	// when we implement characters as coordinates, probably smarter to convert it to an int here.
 
-	printf("You moved the piece %d from %d%d to %d%d\n\n\n\n\n", board[y][x], x, y, m, n);	
-
-	
 	//implement IFF - Identify Friend or Foe
 
 
 
+	printf("Checking Bounds\n");
+	
 	if (!isInBounds()) {
 		return;
 	}
+	
+	printf("Check Successful\n");
+	printf("Checking turn\n");
+	
 	if (!movePiece()) {
 		return;
 	}	
+	
+	printf("Check Successful\n");
+	printf("Checking piece\n");
+
 	if (!whichPiece(board, x, y, m, n)) {
 		return;
 	}
+	
+	printf("Piece successful\n");
+	
 	changeTurn();
 
 	//you also cant make a move which will create CHECK. This will require going back to the previous board state.
@@ -167,7 +192,7 @@ int movePiece() {
 			//you can not capture your own piece
 			return 1;
 		}
-
+		printf("You moved an opposing piece\n");
 		return 0;
 
 	}
@@ -179,11 +204,11 @@ int movePiece() {
 			return 1;
 
 		}
-
+		printf("You moved an opposing piece\n");
 		return 0;
 
 	}
-
+	printf("You really messed up\n");
 	return 0;
 
 }
@@ -221,6 +246,8 @@ int isYourPiece() {
 }
 
 void changeTurn() {
+
+	printf("You successfully reached the change turn point\n");
 
 	board[n][m] = board[y][x];
 	board[y][x] = ' ';
